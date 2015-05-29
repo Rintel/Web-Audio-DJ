@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Web Audio DJ</title>
+		<script src="static/js/shared.js"></script>
+		<script src="audio.js"></script>
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/dj-table.css" rel="stylesheet">
+	</head>
+	<body>
+		<h4 style="text-align: center">Web Audio DJ</h4>
+		<div class=controlpanel_upper>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class=big_slider>
+						Volume <span id="vol1span">100%</span><input id="vol1"  type="range" min="0" max="100" value="100" oninput="musik.volume(this, document.getElementById('vol1span'));;"><br>
+						Tempo <span id="tmp1span">1.00</span><input id="tempo1" type="range" min="50" max="150" value="100" oninput="musik.tempo(this, document.getElementById('tmp1span'));">
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class=big_slider>
+						Volume <span id="vol2span">100%</span><input id="vol2"  type="range" min="0" max="100" value="100" oninput="musik2.volume(this, document.getElementById('vol2span'));"><br>
+						Tempo <span id="tmp2span">1.00</span><input id="tempo2" type="range" min="50" max="150" value="100" oninput="musik2.tempo(this, document.getElementById('tmp2span'));">
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class=controlpanel_lower>
+			<div class="row">
+				<div class="col-xs-6">
+					<div class="row">
+						<div class="col-xs-6 col-sm-4">
+							<h5 style="text-align:center">High</h5>
+							<div class="small_slider">
+								<input id="eq1h" class="vertical" type="range" value="100" step="1" min="0" max="200" orient="vertical" oninput="musik.changeGainHigh(this, document.getElementById('eq1hp'))">
+								<p id="eq1hp"><br><br>0 db<br>100 %</p>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<h5 style="text-align:center">Medium</h5>
+							<div class="small_slider">
+								<input id="eq1m" class="vertical" type="range" value="100" step="1" min="0" max="200" orient="vertical" oninput="musik.changeGainMid(this, document.getElementById('eq1mp'))">
+								<p id="eq1mp"><br><br>0 db<br>100 %</p>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<h5 style="text-align:center">Low</h5>
+							<div class="small_slider">
+								<input id="eq1l" class="vertical" type="range" value="100" step="1" min="0" max="200" orient="vertical" oninput="musik.changeGainLow(this, document.getElementById('eq1lp'))">
+								<p id="eq1lp"><br><br>0 db<br>100 %</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6">
+					<div class="row">
+						<div class="col-xs-6 col-sm-4">
+							<h5 style="text-align:center">High</h5>
+							<div class="small_slider">
+								<input id="eq2h" class="vertical" type="range" value="100" step="1" min="0" max="200" orient="vertical" oninput="musik2.changeGainHigh(this, document.getElementById('eq2hp'))">
+								<p id="eq2hp"><br><br>0 db<br>100 %</p>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<h5 style="text-align:center">Medium</h5>
+							<div class="small_slider">
+								<input id="eq2m" class="vertical" type="range" value="100" step="1" min="0" max="200" orient="vertical" oninput="musik2.changeGainMid(this, document.getElementById('eq2mp'))">
+								<p id="eq2mp"><br><br>0 db<br>100 %</p>
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-4">
+							<h5 style="text-align:center">Low</h5>
+							<div class="small_slider">
+								<input id="eq2l" class="vertical" type="range" value="100" step="1" min="0" max="200" orient="vertical" oninput="musik2.changeGainLow(this, document.getElementById('eq2lp'))">
+								<p id="eq2lp"><br><br>0 db<br>100 %</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class=controlpanel>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="panel-left">
+						<button id="play1" type="button" class="btn btn-default" onclick="musik.playPauseTrigger(this)">►</button>
+						<button id="stop1" type="button" class="btn btn-default" onclick="musik.stop(this, document.getElementById('play1'))">◼</button>
+						<button type="button" class="btn btn-default" id="loop1" onclick="musik.loop(this)">⟲</button>
+					</div>
+					<div class="counter_box">
+						<br><p id="informations">0:00:00</p>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h5 style="text-align:center">Crossfade</h5>
+					<div class="crossfade">
+						<input id="cross" type="range" min="0" max="100" value="50" oninput="cf.change(this)">
+					</div>
+					<canvas id="visualizer1"></canvas><canvas id="visualizer2"></canvas>
+				</div>
+				<div class="col-md-4">
+					<div class="panel-right">
+						<button id="play2" type="button" class="btn btn-default" onclick="musik2.playPauseTrigger(this)">►</button>
+						<button id="stop2" type="button" class="btn btn-default" onclick="musik2.stop(this, document.getElementById('play2'))">◼</button>
+						<button type="button" class="btn btn-default" id="loop2" onclick="musik2.loop(this)">⟲</button><br>
+					</div>
+					<div class="counter_box" style="margin-left:40%">
+						<br><p id="informations2">0:00:00</p>
+					</div>
+					</div>
+				</div>
+
+				</div>
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="file_upload">
+							<div class="form-group">
+								<label for="filename1">Track 1</label>
+								<input class="fileopenbtn" id="fileopenbtn1" type="button">
+							</div>
+							<input id="audiofile1" type="file" accept="audio/*">
+						</div>
+					</div>
+					<div class="col-xs-6">
+							<div class="file_upload">
+								<div class="form-group">
+									<label for="filename2">Track 2</label>
+									<input type="file" id="fileopenbtn2">
+								</div>
+								<input id="audiofile2" type="file" accept="audio/*">
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<script src="init-audio.js"></script>
+		<script src="midi.js"></script>
+		<script src="visualizer.js"></script>
+	</body>
+</html>
